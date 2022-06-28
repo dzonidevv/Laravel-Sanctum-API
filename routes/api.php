@@ -16,8 +16,6 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/logout', [AuthController::class, 'logout']);
-
 Route::get('/products', [ProductController::class, 'index']);
 
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
@@ -33,5 +31,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/products/{id}', [ProductController::class, 'update']);
 
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
 
 });
