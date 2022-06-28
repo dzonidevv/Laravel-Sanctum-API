@@ -2,8 +2,14 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+
+//!
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Mockery\Exception\InvalidOrderException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -47,4 +53,21 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+
+    public function render($request, Throwable $exception)
+
+    {
+        if($exception instanceOf ModelNotFoundException) {
+            return response(['error' => 'Product not found'], 500);
+            // return response()->json('Model not found', 404);
+        } 
+        
+        if ($exception instanceOf NotFoundHttpException) {
+            return response(['error' => 'Incorrect route.']);
+        } 
+        return parent::render($request, $exception);
+
+        }
+
 }
