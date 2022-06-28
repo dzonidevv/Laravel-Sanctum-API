@@ -78,6 +78,7 @@ class AuthController extends Controller
 
     public function logout(Request $request) {
 
+        // Note: tokens() not working
         auth()->user()->tokens()->delete();
 
         return [
