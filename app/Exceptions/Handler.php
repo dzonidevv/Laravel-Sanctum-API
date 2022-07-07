@@ -59,12 +59,12 @@ class Handler extends ExceptionHandler
 
     {
         if($exception instanceOf ModelNotFoundException) {
-            return response(['error' => 'Product not found'], 500);
+            return response(['error' => 'Product not found'], 404);
             // return response()->json('Model not found', 404);
         } 
         
         if ($exception instanceOf NotFoundHttpException) {
-            return response(['error' => 'Incorrect route.']);
+            return response(['error' => 'Incorrect route.'], 400);
         } 
         return parent::render($request, $exception);
 
